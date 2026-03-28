@@ -7,5 +7,9 @@ export const inventoryApi = {
   
   deleteItem: (id) => axios.delete(`${BASE_URL}/${id}`),
   
-  createItem: (data) => axios.post(BASE_URL, data)
+  createItem: (data) => axios.post(BASE_URL, data),
+
+  updateText: (id, textData) => axios.put(`${BASE_URL}/${id}`, textData),
+
+  updatePhoto: (id, photoUrl) => axios.put(`${BASE_URL}/${id}`, { photo: photoUrl })
 }; 

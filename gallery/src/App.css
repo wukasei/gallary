@@ -1,0 +1,342 @@
+/* src/App.css */
+:root {
+  --main-pink: #ffe5ec;
+  --accent-pink: #ffb3c1;
+  --soft-green: #95d5b2;
+  --dark-sage: #52796f;
+  --text-color: #5e548e; 
+}
+
+body {
+  background-color: #fff9fa;
+  color: var(--text-color);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.admin-container {
+  padding: 30px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.admin-header h2 {
+  color: var(--accent-pink);
+  font-size: 2rem;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+}
+
+.inventory-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 10px;
+  background: transparent;
+  margin-top: 20px;
+}
+
+.inventory-table th {
+  padding: 15px;
+  color: var(--dark-sage);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 0.85rem;
+  border-bottom: 2px solid var(--main-pink);
+}
+
+.inventory-table tr {
+  background: white;
+  transition: transform 0.2s;
+}
+
+.inventory-table tr:hover {
+  transform: scale(1.01);
+}
+
+.inventory-table td {
+  padding: 15px;
+  border-top: 1px solid var(--main-pink);
+  border-bottom: 1px solid var(--main-pink);
+}
+
+.inventory-table td:first-child { border-left: 1px solid var(--main-pink); border-radius: 15px 0 0 15px; }
+.inventory-table td:last-child { border-right: 1px solid var(--main-pink); border-radius: 0 15px 15px 0; }
+
+.preview-img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 50%; 
+  border: 2px solid var(--accent-pink);
+}
+
+.btn-add {
+  padding: 12px 25px;
+  background-color: var(--soft-green);
+  color: white;
+  text-decoration: none;
+  border-radius: 25px; 
+  font-weight: bold;
+  box-shadow: 0 4px 10px rgba(149, 213, 178, 0.4);
+  transition: 0.3s;
+}
+
+.btn-add:hover {
+  background-color: var(--dark-sage);
+  transform: translateY(-2px);
+}
+
+.btn-save {
+  width: 100%;
+  padding: 12px;
+  background: var(--accent-pink);
+  color: white;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.btn-save:hover {
+  background: #ff8fa3;
+}
+
+.btn-back {
+  background: var(--main-pink);
+  color: var(--text-color);
+  border: 1px solid var(--accent-pink);
+  padding: 8px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  margin-bottom: 30px;
+}
+
+.actions-cell {
+  display: flex;
+  gap: 12px; 
+  justify-content: center; 
+  align-items: center;
+  height: 100%; 
+}
+
+.action-icon-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%; 
+  text-decoration: none; 
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  border: none; 
+  cursor: pointer;
+}
+
+a.action-icon-btn {
+  background-color: #eafaf1; 
+  color: #74c69d; 
+}
+
+a.action-icon-btn:hover {
+  background-color: #d4f2e1;
+  transform: scale(1.1) rotate(5deg); 
+  color: #52796f; 
+}
+
+.btn-delete.action-icon-btn {
+  background-color: #fff0f3; 
+  color: #ffb3c1; 
+  padding: 0;
+}
+
+.btn-delete.action-icon-btn:hover {
+  background-color: #ffe0e6;
+  transform: scale(1.1) rotate(-5deg); 
+  color: #ff8fa3; 
+}
+
+/* Форми */
+.inventory-form {
+  max-width: 500px;
+  background: white;
+  padding: 30px;
+  border-radius: 20px;
+  border: 2px solid var(--main-pink);
+  box-shadow: 0 10px 30px rgba(255, 179, 193, 0.15);
+}
+
+.form-group label {
+  color: var(--dark-sage);
+  margin-bottom: 8px;
+}
+
+.form-group input, .form-group textarea {
+  border: 1px solid var(--main-pink);
+  border-radius: 12px;
+  padding: 10px;
+  outline: none;
+}
+
+.form-group input:focus {
+  border-color: var(--accent-pink);
+}
+
+.modal-overlay {
+  position: fixed; 
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(255, 179, 193, 0.4); 
+  backdrop-filter: blur(4px); 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999; 
+}
+
+.modal-content {
+  background: #fffcfd;
+  padding: 40px;
+  border-radius: 30px; 
+  border: 3px solid var(--main-pink);
+  max-width: 450px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 15px 40px rgba(255, 179, 193, 0.3);
+  animation: modalPop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes modalPop {
+  from { opacity: 0; transform: scale(0.8); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.modal-actions {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin-top: 25px;
+}
+
+.btn-confirm-delete, .btn-cancel {
+  padding: 12px 25px;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-confirm-delete {
+  background: #ff8fa3;
+  color: white;
+  border-radius: 20px;
+}
+
+.btn-confirm-delete:hover {
+  background: #ff5c7c;
+  transform: scale(1.05);
+}
+
+.btn-cancel {
+  background: var(--main-pink);
+  color: var(--text-color);
+  border-radius: 20px;
+}
+
+.btn-cancel:hover {
+  background: var(--accent-pink);
+}
+
+nav {
+  background: linear-gradient(90deg, #ffe5ec 0%, #fff0f3 100%) !important;
+  border-bottom: 2px solid var(--accent-pink);
+}
+
+nav a {
+  color: var(--text-color) !important;
+  font-weight: bold;
+  padding: 10px 20px;
+  border-radius: 20px;
+  transition: 0.3s;
+}
+
+nav a:hover {
+  background: white;
+  color: var(--accent-pink) !important;
+}
+
+.edit-sections {
+  display: grid;
+  grid-template-columns: 1fr 1fr; 
+  gap: 30px;
+  margin-top: 25px;
+  align-items: start;
+}
+
+@media (max-width: 800px) {
+  .edit-sections {
+    grid-template-columns: 1fr;
+  }
+}
+
+.edit-card {
+  background: white;
+  padding: 25px;
+  border-radius: 20px;
+  border: 2px solid var(--main-pink);
+  box-shadow: 0 10px 20px rgba(255, 179, 193, 0.1);
+}
+
+.edit-card h3 {
+  color: var(--dark-sage);
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-size: 1.2rem;
+}
+
+.form-group {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column; 
+  align-items: flex-start;
+  text-align: left;
+}
+
+.form-group label {
+  font-size: 0.9rem;
+  color: var(--accent-pink);
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+.form-group input, 
+.form-group textarea {
+  width: 100%;
+  box-sizing: border-box; 
+  padding: 12px;
+  border: 1.5px solid var(--main-pink);
+  border-radius: 12px;
+  font-family: inherit;
+  font-size: 1rem;
+  background-color: #fffcfd;
+}
+
+.form-group textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.edit-preview {
+  width: 100%;
+  max-height: 300px;
+  object-fit: cover;
+  border-radius: 15px;
+  margin-bottom: 15px;
+  border: 1px solid var(--main-pink);
+}
+
+input[type="file"] {
+  font-size: 0.8rem;
+  color: var(--text-color);
+}

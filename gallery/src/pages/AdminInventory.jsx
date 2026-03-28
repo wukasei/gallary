@@ -1,36 +1,70 @@
+// src/pages/AdminInventory.jsx
 import { useEffect, useState } from 'react';
 import { inventoryApi } from '../services/inventoryApi';
+import { Link } from 'react-router-dom';
+import InventoryTable from '../components/inventory/InventoryTable';
+import '../App.css'; 
+import ConfirmModal from '../components/inventory/ConfirmModal';
 
 const AdminInventory = () => {
-    console.log("Компонент AdminInventory завантажився!");
-  const [items, setItems] = useState([]); 
+  const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(true);
+  
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [deletingId, setDeletingId] = useState(null);
+
+  const fetchInventory = async () => {
+    try {
+      const response = await inventoryApi.getInventory();
+      setItems(response.data);
+    } catch (err) {
+      console.error(`Помилка завантаження ${err}`);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await inventoryApi.getInventory();
-        console.log("Ось твої квіти з бази:", response.data); 
-        setItems(response.data);
-      } catch (error) {
-        console.error("Помилка завантаження:", error);
-      }
-    };
-
-    fetchData();
+    fetchInventory();
   }, []);
 
+  const openDeleteModal = (id) => {
+    setDeletingId(id);
+    setIsModalOpen(true);
+  };
+
+  const confirmDelete = async () => {
+    try {
+      await inventoryApi.deleteItem(deletingId);
+      setItems(items.filter(item => item.id !== deletingId));
+      setIsModalOpen(false); 
+    } catch (err) {
+      alert(`Помилка при видаленні ${err}`);
+    }
+  };
+
+  if (loading) return <div className="admin-container">🌸 Завантаження...</div>;
+
   return (
-    <div>
-      <h3>Список квітів (Адмінка)</h3>
+    <div className="admin-container">
+      <div className="admin-header">
+        <h2>📦 Управління складом</h2>
+        <Link to="/admin/create" className="btn-add">+ Додати товар</Link>
+      </div>
+
       {items.length === 0 ? (
-        <p>Завантаження або квітів немає...</p>
+        <p>Склад порожній.</p>
       ) : (
-        <ul>
-          {items.map(flower => (
-            <li key={flower.id}>{flower.inventory_name}</li>
-          ))}
-        </ul>
+        <InventoryTable items={items} onDelete={openDeleteModal} />
       )}
+
+      <ConfirmModal 
+        isOpen={isModalOpen}
+        title="Видалення квітки"
+        message="Ви точно хочете видалити цю красу? Цю дію неможливо буде скасувати."
+        onConfirm={confirmDelete}
+        onCancel={() => setIsModalOpen(false)}
+      />
     </div>
   );
 };

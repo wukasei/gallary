@@ -1,41 +1,40 @@
-import { useEffect, useState } from 'react';
-import { inventoryApi } from './services/inventoryApi';
+import { Routes, Route, Link } from 'react-router-dom'; // Додали Link
+import AdminInventory from './pages/AdminInventory'; 
+import AdminInventoryCreate from './pages/AdminInventoryCreate';
+import AdminInventoryEdit from './pages/AdminInventoryEdit';
+import AdminInventoryDetails from './pages/AdminInventoryDetails';
 
-const AdminInventory = () => {
-  const [items, setItems] = useState([]);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    console.log("Запит пішов..."); 
-    inventoryApi.getInventory()
-      .then(response => {
-        console.log("Дані отримано:", response.data);
-        setItems(response.data);
-      })
-      .catch(err => {
-        console.error("Помилка API:", err);
-        setError(err.message);
-      });
-  }, []);
-
+function App() {
   return (
-    <div style={{ border: '2px solid pink', padding: '10px' }}>
-      <h3>Сторінка Адмінки</h3>
-      {error && <p style={{ color: 'red' }}>Помилка: {error}</p>}
-      
-      {items.length > 0 ? (
-        <ul>
-          {items.map(item => (
-            <li key={item.id}>
-              <strong>{item.inventory_name}</strong> - {item.description}
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p>Квітів поки немає або завантаження...</p>
-      )}
+    <div>
+      <nav style={{ 
+        padding: '15px', 
+        background: '#333', 
+        color: 'white', 
+        display: 'flex', 
+        gap: '20px' 
+      }}>
+        <Link to="/" style={{ color: 'white', textDecoration: 'none' }}>🌸 Галерея (Головна)</Link>
+        <Link to="/admin" style={{ color: 'white', textDecoration: 'none' }}>⚙️ Адмінка</Link>
+      </nav>
+
+      <div style={{ padding: '20px' }}>
+        <Routes>
+          <Route path="/" element={
+            <div>
+              <h1>Вітаємо у квітковій галереї!</h1>
+              <p>Тут згодом будуть гарні картки з квітами (Лаба 8).</p>
+            </div>
+          } />
+          
+          <Route path="/admin" element={<AdminInventory />} />
+          <Route path="/admin/create" element={<AdminInventoryCreate />} />
+          <Route path="/admin/edit/:id" element={<AdminInventoryEdit />} />
+          <Route path="/admin/details/:id" element={<AdminInventoryDetails />} />
+        </Routes>
+      </div>
     </div>
   );
-};
+}
 
-export default AdminInventory;
+export default App;
