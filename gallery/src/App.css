@@ -340,3 +340,252 @@ input[type="file"] {
   font-size: 0.8rem;
   color: var(--text-color);
 }
+
+/* GALLERY!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
+  gap: 25px;
+  margin-top: 20px;
+}
+
+.flower-card {
+  background: white;
+  border-radius: 20px;
+  border: 2px solid var(--main-pink);
+  overflow: hidden; 
+  transition: 0.3s ease;
+}
+
+.flower-card:hover {
+  transform: translateY(-5px); 
+  box-shadow: 0 10px 20px rgba(255, 179, 193, 0.2);
+}
+
+.card-img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+}
+/* src/App.css */
+
+/* Оверлей та затемнення (з розмиттям, дуже girly) */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(255, 182, 193, 0.4); /* Рожева напівпрозора димка */
+  backdrop-filter: blur(8px); /* Гарне розмиття фону */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+}
+
+/* Картка модалки */
+.quickview-card {
+  background: white;
+  width: 90%;
+  max-width: 800px; /* Чітка максимальна ширина */
+  border-radius: 30px; /* Дуже girly заокруглення */
+  padding: 40px;
+  position: relative;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+  animation: modalPopIn 0.3s ease-out; /* Анімація появи */
+}
+
+@keyframes modalPopIn {
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+/* Флекс, щоб поставити фото і текст поруч */
+.quickview-flex {
+  display: flex;
+  gap: 35px; /* Простір між фото та текстом */
+  align-items: flex-start; /* Вирівнювання по верху */
+}
+
+/* Контроль розміру фото (ЦЕ ВИПРАВИТЬ ПРОБЛЕМУ) */
+.quickview-image {
+  flex-shrink: 0; /* Щоб блок з фото не стискався */
+}
+
+.quickview-image img {
+  width: 350px; /* Жорстко фіксуємо ширину для ВСІХ фото */
+  height: 400px; /* Та висоту */
+  object-fit: cover; /* Картинка заповнює область, не розтягуючись, зайве обрізається */
+  border-radius: 20px;
+  border: 3px solid var(--main-pink); /* Girly рамочка */
+}
+
+/* Контроль тексту */
+.quickview-info {
+  text-align: left; /* Текст ліворуч */
+  flex: 1; /* Забирає весь залишок місця */
+}
+
+.quickview-info h2 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  color: var(--text-color);
+}
+
+.quickview-description {
+  color: #666;
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 30px;
+}
+
+/* Декоративний розделитель */
+.divider {
+  height: 2px;
+  background: var(--main-pink);
+  margin-bottom: 20px;
+  width: 60px;
+}
+
+/* Хрестик закриття */
+.close-btn {
+  position: absolute;
+  top: 20px;
+  right: 25px;
+  background: none;
+  border: none;
+  font-size: 30px;
+  cursor: pointer;
+  color: var(--accent-pink);
+}
+
+.close-btn:hover {
+  color: var(--main-pink);
+  transform: scale(1.1);
+}
+.favorites-bar-container {
+  background: white;
+  border: 2px solid var(--main-pink);
+  border-radius: 50px;
+  padding: 10px 25px;
+  display: inline-flex;
+  align-items: center;
+  margin: 20px 0;
+  box-shadow: 0 4px 15px rgba(255, 182, 193, 0.3);
+  animation: slideInUp 0.5s ease-out;
+}
+
+.favorites-link {
+  text-decoration: none;
+  color: var(--text-color);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.1rem;
+}
+
+.heart-icon {
+  font-size: 1.4rem;
+  animation: heartbeat 1.5s infinite; /* Твоє серце буде битися! */
+}
+
+@keyframes heartbeat {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+.favorites-text strong {
+  color: var(--accent-pink);
+  font-size: 1.3rem;
+}
+
+/* Контейнер картинки обов'язково має бути relative */
+.card-image-container {
+  position: relative;
+  overflow: hidden;
+  border-radius: 15px 15px 0 0;
+}
+
+/* Сама кнопка-сердечко */
+.favorite-btn {
+  position: absolute; /* Ставимо поверх картинки */
+  top: 12px;
+  right: 12px;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%; /* Робимо круглою */
+  border: none;
+  background: rgba(255, 255, 255, 0.8); /* Напівпрозорий білий */
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  transition: all 0.3s ease; /* Для плавної анімації */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+}
+
+/* Ефект при наведенні */
+.favorite-btn:hover {
+  transform: scale(1.1);
+  background: white;
+}
+
+/* Коли кнопка активна (лайкнута) */
+.favorite-btn.active {
+  background: #fff0f3; /* Ніжно-рожевий фон */
+  box-shadow: 0 2px 10px rgba(255, 105, 180, 0.4);
+}
+
+/* Щоб прибрати синю рамку при натисканні */
+.favorite-btn:focus {
+  outline: none;
+}
+
+/* Базовий стиль для кнопки "Додати в улюблені" */
+.btn-add-fav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px; /* Відступ між текстом і серцем */
+  
+  padding: 12px 24px;
+  width: 100%; /* На всю ширину контенту справа */
+  max-width: 300px; /* Щоб не була занадто довгою */
+  margin-top: 20px; /* Відступ від опису */
+  
+  font-family: inherit; /* Беремо шрифт з сайту */
+  font-size: 1rem;
+  font-weight: 600;
+  color: #8b6b8d; /* Темно-фіолетовий колір тексту (як заголовок) */
+  
+  background: white;
+  border: 2px solid #ffb6c1; /* Ніжно-рожева рамка */
+  border-radius: 50px; /* М'які круглі краї */
+  
+  cursor: pointer;
+  transition: all 0.3s ease; /* Плавна анімація */
+  box-shadow: 0 4px 15px rgba(255, 182, 193, 0.2); /* Легка рожева тінь */
+}
+
+/* Ефект при наведенні (Hover) */
+.btn-add-fav:hover {
+  background: #ffb6c1; /* Фон стає рожевим */
+  color: white; /* Текст стає білим */
+  box-shadow: 0 6px 20px rgba(255, 182, 193, 0.4);
+  transform: translateY(-2px); /* Кнопка трохи піднімається */
+}
+
+/* Ефект при натисканні (Active) */
+.btn-add-fav:active {
+  transform: translateY(1px); /* Ефект продавлювання */
+  box-shadow: 0 2px 10px rgba(255, 182, 193, 0.3);
+}
+
+/* Прибираємо синю рамку focus */
+.btn-add-fav:focus {
+  outline: none;
+}
